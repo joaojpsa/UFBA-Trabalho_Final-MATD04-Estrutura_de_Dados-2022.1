@@ -1,7 +1,5 @@
 # TRABALHO FINAL | CONTROLE DE CAIXA
 
-
-
 ```
 Universidade Federal da Bahia - UFBA
 Instituto de Computação
@@ -10,11 +8,11 @@ Equipe: 04 - Heron Oliveira, Lílian Sousa, Jefferson Raimon, João Abreu, Mateu
 Professora: Cristiana Bispo
 ```
 
-
-
 ## Introdução
 
 Neste trabalho, nós desenvolvemos um programa que recebe como valor de entrada o  saldo total do caixa no dia, de um supermecado e o armazena numa estrutura de dados do tipo pilha. Também é possível imprimir o relatório dos valores de cada dia, excluir a ultima entrada e também excluir todo o relatório.
+
+![programa](https://user-images.githubusercontent.com/80064475/154977517-f8a852d9-9433-4cd0-8688-c5d205201373.png)
 
 ## Estrutura da Pilha
 
@@ -28,6 +26,12 @@ typedef struct PILHA{
   float tamanho;
 } Pilha;
 ```
+
+Para o *struct* usamos duas estruturas:
+
+- uma estrutura *NO* (utilizamos o typedef para facilitar a organização e entendimento do código) com dois elementos, uma valor *float* e um ponteiro para outro nó.
+
+- e a estrutura *PILHA*, que possui um elemento do tipo **NO* chamado topo, e um tamanho *int* para o tamanho da pilha.
 
 ## Funções da Pilha
 
@@ -49,4 +53,60 @@ void desempilhar(Pilha *pilha);
 
 ```c
 void limparPilha(Pilha **pilha);
+```
+
+### Inicializar Pilha
+
+```c
+void inicializarPilha(Pilha *pilha) {
+  pilha->topo    = NULL;
+  pilha->tamanho = 0;
+}
+```
+
+Essa função fica responsável de inicializar a estrutura pilha da seguinte forma:
+
+- recebe como argumento um ponteiro do tipo Pilha (definido na Struct); 
+
+- acessa a struct e define o valor do ponteiro topo como NULL e o tamanho da pilha como 0.
+
+### Empilhar
+
+```c
+void empilhar(float valor, Pilha *pilha) {
+  No *novoNo = malloc(sizeof(No));
+  novoNo->valor = valor;
+  if (pilha->tamanho == 0)
+    novoNo->proximo = NULL;
+  else
+    novoNo->proximo = pilha->topo;
+  pilha->topo = novoNo;
+  pilha->tamanho++;
+}
+```
+
+Para a operação de empilhar:
+
+- recebe como parâmetro um ponteiro do tipo *Pilha* para a nossa pilha e o elemento do tipo *float*a ser inserido.
+
+- um novo nó é alocado dinamicamente e inserido no topo da pilha.
+
+- atualizamos o ponteiro para o topo.
+
+- acessamos o parâmetro tamanho e incrementamos ele.
+
+### Exibir Pilha
+
+```c
+void exibir(Pilha *pilha) {
+  No *temporario;
+  float soma = 0;
+  temporario = pilha->topo;
+  int i = pilha->tamanho;
+  while (i > 0) {
+    soma += temporario ->valor;
+    printf("Dia: %i | Valor: [ R$%5.2f ]\n", i, temporario->valor);
+    temporario = temporario->proximo;
+    i--;
+  }
 ```
