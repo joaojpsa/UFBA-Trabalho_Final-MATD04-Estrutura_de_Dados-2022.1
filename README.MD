@@ -10,9 +10,17 @@ Professora: Cristiana Bispo
 
 ## Introdução
 
-Neste trabalho, nós desenvolvemos um programa que recebe como valor de entrada o  saldo total do caixa no dia, de um supermecado e o armazena numa estrutura de dados do tipo pilha. Também é possível imprimir o relatório dos valores de cada dia, excluir a ultima entrada e também excluir todo o relatório.
+Neste trabalho, nós desenvolvemos um programa que recebe como valor de entrada o  saldo total do caixa no dia, de um supermercado e o armazena numa estrutura de dados do tipo pilha. Também é possível imprimir o relatório dos valores de cada dia, excluir a ultima entrada e também excluir todo o relatório.
 
 ![programa](https://user-images.githubusercontent.com/80064475/154977517-f8a852d9-9433-4cd0-8688-c5d205201373.png)
+
+## Por quê pilha?
+
+Nas atividades diárias de um mercado, é necessário haver um controle de caixa, em que se possa inserir o valor total do caixa a cada dia. Assim, criamos um programa em que se pode inserir o valor total do caixa por dia e remover apenas o último no caso de erro, o que faz a estrutura de pilha a ideal devido ser do tipo LIFO (last in, first out) e possibilita atender essa necessidade do programa.
+
+Os dias que passaram acabarão sendo empilhados e no relatório será mostrado do primeiro dia ao último, de baixo pra cima e o valor total do mês corrente.
+
+![programa_imprimir](https://user-images.githubusercontent.com/80064475/154999513-3ff37024-1f88-4376-88f7-821526f34433.png)
 
 ## Estrutura da Pilha
 
@@ -66,7 +74,7 @@ void inicializarPilha(Pilha *pilha) {
 
 Essa função fica responsável de inicializar a estrutura pilha da seguinte forma:
 
-- recebe como argumento um ponteiro do tipo Pilha (definido na Struct); 
+- recebe como argumento um ponteiro do tipo Pilha (definido na Struct). 
 
 - acessa a struct e define o valor do ponteiro topo como NULL e o tamanho da pilha como 0.
 
@@ -110,3 +118,36 @@ void exibir(Pilha *pilha) {
     i--;
   }
 ```
+Cria-se um ponteiro temporário para receber o topo da pilha então temos uma variavel de controle para correr o tamanho da pilha ( ou o numero de dias) assim imprimindo na tela esse valor 
+### Desempilhar
+```c
+void desempilhar(Pilha *pilha) {
+  if (pilha->tamanho == 0) {
+    printf("Sem Relatorios\n");
+  } else {
+    printf(" VALOR: [R$%5.2f] EXCLUIDO\n", pilha->topo->valor);
+    pilha->tamanho--;
+    pilha->topo = pilha->topo->proximo;
+  }
+}
+```
+Para a operação de desempilhar:
+- retorna o ponteiro para o topo desempilhado ou nulo caso a pilha esteja vazia.
+- antes de retornar ao nó desempilhado, o topo é atualizado para o nó seguinte.
+### Limpar Pilha
+```c
+void limparPilha(Pilha **pilha) {
+  printf("Excluindo Relatorio...\n");
+  No *temporario;
+  temporario = *pilha;
+  while (temporario != NULL) {
+    printf("Excluindo... [R$%5.2f]\n", temporario->valor);
+      *pilha = temporario->proximo;
+      free(temporario);
+      temporario = *pilha;
+  }
+}
+```
+Cria-se um ponteiro temporário para receber a pilha e para não perdermos a referência da mesma e 
+também uma estrutura de repetição que checar se a pilha está vazia e usa a função free para limpar, 
+enquanto houver valores na pilha.
