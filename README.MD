@@ -4,8 +4,7 @@
 Universidade Federal da Bahia - UFBA
 Instituto de Computação
 MATD04 - Estruturas de Dados | 2022.1 - Férias
-Equipe: 04 - Heron Oliveira, Lílian Sousa, Jefferson Raimon, João Abreu, Mateus Moura,
-             Rafael Casaes, Wanderson Santos.
+Equipe: 04 - Heron Oliveira, Lílian Sousa, Jefferson Raimon, João Abreu, Mateus Moura, Rafael Casaes, Wanderson Santos.
 Professora: Cristiana Bispo
 ```
 
@@ -149,6 +148,4 @@ void limparPilha(Pilha **pilha) {
   }
 }
 ```
-Cria-se um ponteiro temporário para receber a pilha e para não perdermos a referência da mesma e 
-também uma estrutura de repetição que checar se a pilha está vazia e usa a função free para limpar, 
-enquanto houver valores na pilha.
+Cria-se um ponteiro temporário para receber a pilha e para não perdermos a referência da mesma e também uma estrutura de repetição que checar se a pilha está vazia e usa a função free para limpar, enquanto houver valores na pilha.
